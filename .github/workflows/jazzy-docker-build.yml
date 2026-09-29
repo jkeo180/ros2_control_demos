@@ -21,13 +21,12 @@ on:
     # Run every morning to detect broken dependencies
     - cron: '40 1 * * MON-FRI'
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v7
-      with:
-        ref: jazzy
-    - name: Build the Docker image
-      run: docker build --file Dockerfile/Dockerfile --tag ros2_control_demos_jazzy --build-arg ROS_DISTRO=jazzy .
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - name: Build the Docker image
+        run: docker build --file Dockerfile/Dockerfile --tag ros2_control_demos_jazzy --build-arg ROS_DISTRO=jazzy .
