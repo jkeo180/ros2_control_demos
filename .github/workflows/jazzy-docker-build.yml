@@ -24,9 +24,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: master
-      - name: Build the Docker image
-        run: docker build --file Dockerfile/Dockerfile --tag ros2_control_demos_jazzy --build-arg ROS_DISTRO=jazzy .
+    steps:- uses: actions/checkout@v4
+  with:
+  ref: ${{ github.event_name == 'schedule' && 'jazzy' || github.ref }}
+  - name: Build the Docker image
+  run: docker build --file Dockerfile/Dockerfile --tag ros2_control_demos_jazzy --build-arg ROS_DISTRO=jazzy .
